@@ -629,7 +629,7 @@ class LaserGcode(inkex.Effect):
             {"name": "--plotter-off-degree", "type": int, "dest": "plotter_off_degree", "default": 90,
              "help": "S# is 256"},
 
-            {"name": "--plotter-on-degress", "type": int, "dest": "plotter_on_degree", "default": 0,
+            {"name": "--plotter-on-degree", "type": int, "dest": "plotter_on_degree", "default": 0,
              "help": "S# is 256"},
 
             {"name": "--plotter-on-delay", "type": str, "dest": "plotter_on_delay",
