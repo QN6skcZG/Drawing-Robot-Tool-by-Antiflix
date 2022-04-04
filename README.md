@@ -21,7 +21,7 @@ Restart Inkscape and you're done.
 
 > Inside `Inkscape > Extension > Generate GCode for Drawing Robot > Drawing Robot tool by Antiflix`
 
-![Drawing Robot tool panel](img/GcodePanel.png)
+![Drawing Robot tool panel](GcodePanel.png)
 
 | Name | Definition | Default | Gcode Result |
 |---|---| --- | --- |
