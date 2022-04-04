@@ -11,7 +11,7 @@ This extension work for the [Drawing Robot - Arduino Uno + CNC Shield + GRBL](ht
 
 ## Installation
 
-Download the source code) and copy the plotter-lod.inx and plotter-lod.py into the Inkscape extensions folder.
+Download the source code) and copy the drawingrobot.inx and drawingrobot.py into the Inkscape extensions folder.
 
  Inkscape lists the location of your extensions folder under **Edit** > **Preferences** > **System**.
 
