@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """
+Modified by Andreas Wunsch 2022, Antiflix, www.antiflix.de
 Modified by Adrien Centonze 2021, Love Open Design, love-open-design.com
 Modified by Jay Johnson 2015, J Tech Photonics, Inc., jtechphotonics.com
 modified by Adam Polak 2014, polakiumengineering.org
@@ -569,12 +570,10 @@ class ArrangementGenetic:
 class LaserGcode(inkex.Effect):
 
     def export_gcode(self, gcode):
-        gcode_pass = gcode
-        for x in range(1, self.options.passes):
-            gcode += "G91\nG1 Z-" + self.options.pass_depth + "\nG90\n" + gcode_pass
         f = open(self.options.directory + self.options.file, "w")
         f.write(
-            self.options.plotter_off_command + " S0" + "\n" + self.header +
+            self.options.plotter_off_command + " S" + str(
+                int(self.options.plotter_off_degree)) + "\n" + self.header +
             "G1 F" + self.options.travel_speed + "\n" + gcode + self.footer)
         f.close()
 
@@ -627,14 +626,11 @@ class LaserGcode(inkex.Effect):
             {"name": "--travel-speed", "type": str, "dest": "travel_speed",
              "default": "3000", "help": "Travel speed (mm/min},"},
 
-            {"name": "--plotter-active", "type": int, "dest": "plotter_active", "default": 255,
-             "help": "S# is 256 or 10000 for full power"},
+            {"name": "--plotter-off-degree", "type": int, "dest": "plotter_off_degree", "default": 90,
+             "help": "S# is 256"},
 
-            {"name": "--passes", "type": int, "dest": "passes", "default": 1,
-             "help": "Quantity of passes"},
-
-            {"name": "--pass-depth", "type": str, "dest": "pass_depth", "default": 1,
-             "help": "Depth of laser cut"},
+            {"name": "--plotter-on-degress", "type": int, "dest": "plotter_on_degree", "default": 0,
+             "help": "S# is 256"},
 
             {"name": "--plotter-on-delay", "type": str, "dest": "plotter_on_delay",
              "default": "0", "help": "Laser power-on delay (ms},"},
@@ -1451,14 +1447,14 @@ class LaserGcode(inkex.Effect):
 
         self.tools = {
             # "name": "Laser Engraver",
-            "name": "LY Drawing Machin",
-            "id": "LY Drawing Machin",
+            "name": "Drawing Robot",
+            "id": "Drawing Robot",
             "penetration feed": self.options.plotter_speed,
             "feed": self.options.plotter_speed,
-            "gcode before path": ("G4 P0 \n" + self.options.plotter_command + " S" + str(
-                int(self.options.plotter_active)) + "\nG4 P" + self.options.plotter_on_delay),
+            "gcode before path": ("G4 P0 \n" + self.options.plotter_command + " S" + str(int(self.options.plotter_on_degree)) + "\nG4 P" + self.options.plotter_on_delay),
             "gcode after path": (
-                    "G4 P0" + "\n" + self.options.plotter_off_command + " S0" + "\nG4 P" + self.options.plotter_off_delay + "\n" + "G1 F" + self.options.travel_speed),
+                    "G4 P0" + "\n" + self.options.plotter_off_command + " S" + str(
+                int(self.options.plotter_off_degree)) + "\nG4 P" + self.options.plotter_off_delay + "\n" + "G1 F" + self.options.travel_speed),
         }
 
         self.get_info()
@@ -1470,4 +1466,3 @@ if target_version < 1.0:
     e.affect()
 else:
     e.run()
-
